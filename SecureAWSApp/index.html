@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Web App on AWS</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f8f9fa; }
+        h1 { color: #007bff; }
+        form { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { padding: 10px; margin: 10px; width: calc(100% - 20px); border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #28a745; color: white; padding: 10px; border: none; cursor: pointer; width: 100%; border-radius: 4px; }
+        button:hover { background: #218838; }
+        #response { margin-top: 20px; color: green; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Secure Web App</h1>
+    <p>Enter your details to submit to the backend.</p>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="response"></div>
+    <script>
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email })
+                });
+                const result = await response.json();
+                document.getElementById('response').innerText = result.message;
+            } catch (error) {
+                document.getElementById('response').innerText = 'Error submitting data.';
+            }
+        });
+    </script>
+</body></html>
