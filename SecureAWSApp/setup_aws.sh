@@ -1,11 +1,11 @@
 #!/bin/bash
 # Set variables (update with your values)
 REGION="us-east-1"
-VPC_ID="vpc-12345678"  # Replace with actual VPC ID from console
-SUBNET_ID="subnet-12345678"  # Replace with actual subnet ID
-SG_ID="sg-12345678"  # Replace with actual security group ID
-KEY_NAME="intern"
-AMI_ID="ami-0abcdef1234567890"  # Amazon Linux 2 AMI
+VPC_ID=""  # Replace with actual VPC ID from console
+SUBNET_ID=""  # Replace with actual subnet ID
+SG_ID=""  # Replace with actual security group ID
+KEY_NAME=""
+AMI_ID=""  # Amazon Linux 2 AMI
 # Launch EC2 instance
 INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --count 1 --instance-type t2.micro --key-name $KEY_NAME --security-group-ids $SG_ID --subnet-id $SUBNET_ID --query 'Instances[0].InstanceId' --output text)
 echo "Launched EC2 instance: $INSTANCE_ID"
